@@ -14,6 +14,7 @@ Coordinates are in pixels on a 1080x1920 canvas.
 from __future__ import annotations
 
 import math
+import os
 import re
 import subprocess
 from dataclasses import dataclass, field
@@ -30,26 +31,46 @@ W, H, FPS = 1080, 1920, 30
 # Instagram overlays its own UI on Reels; keep content inside this box.
 SAFE_TOP, SAFE_BOTTOM, SAFE_LEFT, SAFE_RIGHT = 250, 1500, 80, 940
 
-COLORS = {
-    "bg": (255, 255, 255),
-    "ink": (17, 24, 39),          # primary text
-    "muted": (107, 114, 128),     # secondary text, index labels
-    "line": (209, 213, 219),      # cell borders, dividers
-    "card": (244, 245, 247),      # code card background
-    "primary": (37, 99, 235),     # focus / highlight (blue)
-    "primary_soft": (219, 234, 254),
-    "accent": (245, 158, 11),     # second highlight (amber)
-    "accent_soft": (254, 243, 199),
-    "good": (5, 150, 105),        # output / correct
-    "bad": (220, 38, 38),         # errors
-    "bad_soft": (254, 226, 226),
-    # syntax highlighting (light theme)
-    "kw": (124, 58, 237),
-    "num": (217, 119, 6),
-    "str": (5, 150, 105),
-    "com": (156, 163, 175),
-    "fn": (37, 99, 235),
+def _hex(h):
+    return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
+
+
+# Each theme defines the same tokens. "bg" is the canvas; "surface" fills cells,
+# cards and slots so data stays crisp on a coloured background.
+THEMES = {
+    # light green canvas, white cells: the default
+    "green": {
+        "bg": "#C3EBCF", "surface": "#FFFFFF", "ink": "#0B2316", "muted": "#3B6B50",
+        "line": "#8FC4A0", "card": "#F3FBF5", "on_primary": "#FFFFFF",
+        "primary": "#1D4ED8", "primary_soft": "#DBEAFE",
+        "accent": "#C2410C", "accent_soft": "#FFEDD5",
+        "good": "#047857", "bad": "#B91C1C", "bad_soft": "#FEE2E2",
+        "kw": "#7C3AED", "num": "#C2410C", "str": "#047857", "com": "#94A39A",
+        "fn": "#1D4ED8",
+    },
+    # deep "chalkboard" green, light text
+    "board": {
+        "bg": "#123A2B", "surface": "#1B4A38", "ink": "#F1F6F3", "muted": "#A3C4B3",
+        "line": "#4B7A66", "card": "#0C2C20", "on_primary": "#123A2B",
+        "primary": "#FDE047", "primary_soft": "#4D5323",
+        "accent": "#FB923C", "accent_soft": "#5A3A22",
+        "good": "#4ADE80", "bad": "#F87171", "bad_soft": "#5A2626",
+        "kw": "#C4B5FD", "num": "#FDBA74", "str": "#86EFAC", "com": "#7FA393",
+        "fn": "#93C5FD",
+    },
+    # the original white theme
+    "white": {
+        "bg": "#FFFFFF", "surface": "#FFFFFF", "ink": "#111827", "muted": "#6B7280",
+        "line": "#D1D5DB", "card": "#F4F5F7", "on_primary": "#FFFFFF",
+        "primary": "#2563EB", "primary_soft": "#DBEAFE",
+        "accent": "#F59E0B", "accent_soft": "#FEF3C7",
+        "good": "#059669", "bad": "#DC2626", "bad_soft": "#FEE2E2",
+        "kw": "#7C3AED", "num": "#D97706", "str": "#059669", "com": "#9CA3AF",
+        "fn": "#2563EB",
+    },
 }
+THEME = os.environ.get("REEL_THEME", "green")
+COLORS = {k: _hex(v) for k, v in THEMES[THEME].items()}
 
 FONT_DIRS = [
     Path("/usr/share/fonts/opentype/inter"),
@@ -385,14 +406,14 @@ class ArrayRow(Element):
             x = self.cell_x(i)
             cx, cy = x + self.cell / 2, y0 + self.cell / 2
             half = self.cell / 2 * s
-            fill, border, txt = COLORS["bg"], COLORS["line"], COLORS["ink"]
+            fill, border, txt = COLORS["surface"], COLORS["line"], COLORS["ink"]
             lift = 0
             for hl in self.highlights:
                 if hl.index == i and hl.start <= t < hl.end:
                     hp = ease_out_cubic(progress(t, hl.start, 0.25))
                     soft = {"primary": "primary_soft", "accent": "accent_soft",
                             "bad": "bad_soft"}[hl.style]
-                    fill = mix(COLORS["bg"], COLORS[soft], hp)
+                    fill = mix(COLORS["surface"], COLORS[soft], hp)
                     border = mix(COLORS["line"], COLORS[hl.style], hp)
                     txt = mix(COLORS["ink"], COLORS[hl.style], hp)
                     lift = -18 * hp
@@ -477,7 +498,7 @@ class Card(Element):
         y0 = self.y + self.dy(t)
         h = 130 + len(self.rows) * 150
         d.rounded_rectangle([x0, y0, x1, y0 + h], radius=32,
-                            fill=COLORS["bg"], outline=COLORS["line"], width=4)
+                            fill=COLORS["surface"], outline=COLORS["line"], width=4)
         d.rounded_rectangle([x0, y0, x0 + 16, y0 + h], radius=8, fill=COLORS["primary"])
         d.text((x0 + 56, y0 + 44), self.heading, font=font("sans-black", 52),
                fill=COLORS["ink"])
@@ -487,9 +508,9 @@ class Card(Element):
                 continue
             ry = y0 + 140 + i * 150 + (1 - p) * 20
             d.text((x0 + 56, ry), code, font=font("mono-bold", 44),
-                   fill=mix(COLORS["bg"], COLORS["primary"], p))
+                   fill=mix(COLORS["surface"], COLORS["primary"], p))
             d.text((x0 + 56, ry + 62), expl, font=font("sans", 36),
-                   fill=mix(COLORS["bg"], COLORS["muted"], p))
+                   fill=mix(COLORS["surface"], COLORS["muted"], p))
 
 
 @dataclass

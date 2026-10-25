@@ -233,7 +233,7 @@ class Subtitles(Element):
                 p = ease_out_cubic(progress(t, ws, 0.08))
                 d.rounded_rectangle([x - 10, y - 6, x + ww + 10, y + self.size * 1.12],
                                     radius=12, fill=mix(COLORS["bg"], COLORS["primary"], p))
-                col = COLORS["bg"]
+                col = COLORS["on_primary"]
             else:
                 col = COLORS["ink"] if spoken else COLORS["muted"]
             d.text((x, y), w, font=f, fill=col)

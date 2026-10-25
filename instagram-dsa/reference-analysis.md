@@ -1,14 +1,16 @@
 # Reference Reel analysis
 
-**Reference:** https://www.instagram.com/reel/DeXEFAttU-J/
+**References:**
+- https://www.instagram.com/reel/DeXEFAttU-J/
+- https://www.instagram.com/reel/De0zMlBPre7/ (second reference, also not accessible)
 
-## Status: not analysed. I could not access it.
+## Status: not analysed. Neither Reel could be accessed.
 
 The build environment cannot reach `instagram.com`: the DNS lookup fails. Instagram
 also requires a login to play most Reels, and it doesn't serve video to automated
-fetchers. **I have not watched this Reel, and nothing in this folder describes
+fetchers. **I have not watched either Reel, and nothing in this folder describes
 its animation, fonts, timing or layout.** The style in [`style-guide.md`](style-guide.md)
-is an original design built for your brief (white background, code-first teaching
+is an original design built for your brief (now a green background, code-first teaching
 of data structures and algorithms). It is not a copy of the reference.
 
 ## What I need from you to match the reference more closely
@@ -41,7 +43,7 @@ Send any of these and I'll compare them with the style guide and update the engi
 | Composition | Where code sits compared with the visual; how the safe areas are used | _pending_ |
 | Visual hierarchy | What draws the eye first (colour, size, motion) | _pending_ |
 | Educational structure | Hook → concept → example → gotcha → recap? | _pending_ |
-| Background | Current colour. We'll switch to **white** either way | _pending_ |
+| Background | Current colour. The videos now use a **green** theme | _pending_ |
 
 Even after the comparison, the aim is to borrow the *approach* (pacing, how motion
 explains the idea) and keep the logo, colours, characters and layout signatures

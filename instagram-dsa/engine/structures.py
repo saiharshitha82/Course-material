@@ -32,9 +32,9 @@ def draw_cell(d, cx, cy, cs, text, style=None, strength=1.0, scale=1.0, dim=Fals
     if scale <= 0.02:
         return
     half = cs / 2 * scale
-    fill, border, txt = COLORS["bg"], COLORS["line"], COLORS["ink"]
+    fill, border, txt = COLORS["surface"], COLORS["line"], COLORS["ink"]
     if dim:
-        border, txt = mix(COLORS["line"], COLORS["bg"], 0.4), COLORS["line"]
+        border, txt = mix(COLORS["line"], COLORS["surface"], 0.4), COLORS["line"]
     if style:
         fill = mix(fill, COLORS[SOFT[style]], strength)
         border = mix(border, COLORS[style], strength)
@@ -465,7 +465,7 @@ class RefDiagram(Element):
                 continue
             s = ease_out_back(q)
             d.rounded_rectangle([x - ss / 2 * s, y - ss / 2 * s, x + ss / 2 * s, y + ss / 2 * s],
-                                radius=int(16 * s), fill=COLORS["bg"], outline=COLORS["line"],
+                                radius=int(16 * s), fill=COLORS["surface"], outline=COLORS["line"],
                                 width=5)
             d.ellipse([x - 11, y - 11, x + 11, y + 11], fill=COLORS["ink"])
             if label:
