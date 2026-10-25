@@ -1,6 +1,6 @@
 # Visual style guide
 
-This is an original visual system for a green-background Reels page that teaches data
+This is an original visual system for a dark-green-background Reels page that teaches data
 structures and algorithms in Python. Every value here is defined once in
 [`engine/reelkit.py`](engine/reelkit.py) (`COLORS`, `FONT_FILES`, `SAFE_*`), so changing
 the brand there updates every video.
@@ -21,16 +21,16 @@ Run `Scene(..., debug_safe_area=True)` to draw the box while you lay out a scene
 ## 2. Colour themes
 
 Every video uses one theme, set by the `REEL_THEME` environment variable. The
-default is **green**. See [`samples/theme-options.png`](samples/theme-options.png)
+default is **board**, a dark chalkboard green. See [`samples/theme-options.png`](samples/theme-options.png)
 for the same frames in each theme.
 
 ```bash
-python episodes/ep01_list_indexing.py                     # green (default)
-REEL_THEME=board python episodes/ep01_list_indexing.py    # dark chalkboard green
+python episodes/ep01_list_indexing.py                     # board: dark green (default)
+REEL_THEME=green python episodes/ep01_list_indexing.py    # light green
 REEL_THEME=white python episodes/ep01_list_indexing.py    # original white
 ```
 
-| Token | green (default) | board | white | Use |
+| Token | green | board (default) | white | Use |
 |---|---|---|---|---|
 | `bg` | `#C3EBCF` | `#123A2B` | `#FFFFFF` | Canvas |
 | `surface` | `#FFFFFF` | `#1B4A38` | `#FFFFFF` | Cells, slots, recap card: the data sits on this |
@@ -41,8 +41,9 @@ REEL_THEME=white python episodes/ep01_list_indexing.py    # original white
 | `accent` | `#C2410C` | `#FB923C` | `#F59E0B` | A second concept on screen |
 | `good` / `bad` | `#047857` / `#B91C1C` | `#4ADE80` / `#F87171` | `#059669` / `#DC2626` | Output / errors |
 
-The green theme uses darker blue, orange and red than the white theme, so headline
-text keeps enough contrast on the green background. To add your own theme, copy an
+The board theme uses light text with yellow as the focus colour, which reads like
+chalk on a board. The light green theme uses darker blue, orange and red than the
+white theme, so headline text keeps enough contrast. To add your own theme, copy an
 entry in `THEMES` in `engine/reelkit.py` and change its values.
 
 Rules:

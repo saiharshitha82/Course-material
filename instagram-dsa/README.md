@@ -1,14 +1,14 @@
 # DSA in Python: an Instagram Reels production kit
 
 A complete workflow for a page that teaches Python data structures and algorithms
-through short, animated, green-background Reels (white and dark-green themes also
-included). It starts at lists and indexing,
+through short, animated Reels on a dark chalkboard-green background (light-green and
+white themes also included). It starts at lists and indexing,
 not `print()`.
 
 | File | What it is |
 |---|---|
 | [`reference-analysis.md`](reference-analysis.md) | Status of the reference Reel analysis (**not yet done**, because Instagram was unreachable) and what to send so it can be done |
-| [`style-guide.md`](style-guide.md) | Original brand: colour themes (green default), fonts, safe areas, layout, motion language, pacing |
+| [`style-guide.md`](style-guide.md) | Original brand: colour themes (dark green default), fonts, safe areas, layout, motion language, pacing |
 | [`content-plan.md`](content-plan.md) | 51 episodes across 8 seasons, from lists to graphs, each with a hook, visual and gotcha |
 | [`templates/episode-template.md`](templates/episode-template.md) | Fill-in script, storyboard and caption template |
 | [`episodes/`](episodes/) | Episode scripts 01–06: voice-over, storyboard, Instagram caption, quiz |
@@ -46,7 +46,7 @@ python episodes/ep01_list_indexing.py --stills   # key frames → ../renders/*.p
 python episodes/ep01_list_indexing.py            # MP4 with voice + captions → ../renders/
 ```
 
-Set `REEL_THEME=board` or `REEL_THEME=white` before the command to render in a
+Set `REEL_THEME=green` (light green) or `REEL_THEME=white` before the command to render in a
 different colour theme (see the style guide).
 
 Each render writes three files to `renders/`:
@@ -77,7 +77,7 @@ sentence, so changing visuals doesn't re-synthesise anything.
   `("nums[2] is 30.", "nums of two is thirty.")`. The caption shows the code and the
   voice says the words.
 - **Captions:** short phrases of up to about 24 characters at the bottom of the safe
-  area. The word being spoken is highlighted in brand blue.
+  area. The word being spoken is highlighted in the theme's focus colour (yellow on dark green).
 - **Music:** add it in the Instagram app (licensed library) or in your editor, at
   about 10–15% volume under the voice.
 

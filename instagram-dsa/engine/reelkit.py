@@ -69,7 +69,7 @@ THEMES = {
         "fn": "#2563EB",
     },
 }
-THEME = os.environ.get("REEL_THEME", "green")
+THEME = os.environ.get("REEL_THEME", "board")
 COLORS = {k: _hex(v) for k, v in THEMES[THEME].items()}
 
 FONT_DIRS = [
