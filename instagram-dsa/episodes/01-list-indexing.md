@@ -13,7 +13,7 @@ edit a line, the visuals re-time themselves.
 
 | Beat | Time | Voice-over (caption text; spoken form in brackets if different) | On screen |
 |---|---|---|---|
-| hook | 0.4–4.8 | "Python list indexing in 40 seconds. Plus the bug every beginner hits." | Pill "DSA in Python · #01", title with **indexing** underlined, sub-line |
+| hook | 0.4–4.8 | "Python list indexing in 40 seconds. Plus the bug every beginner hits." | Title with **indexing** underlined, sub-line |
 | setup | 5.4–8.5 | "Here's a list of five numbers. Each item has a position." | `nums = [10, 20, 30, 40, 50]` types out, five cells pop in |
 | rule | 8.9–10.9 | "And positions start at zero, not one." | Blue indices 0–4 above the cells |
 | ex1 | 11.6–14.5 | "So nums[2] is the third item: 30." *(nums of two… thirty)* | Arrow to cell 2, which lifts blue; `30` appears as "thirty" is said |
@@ -37,7 +37,7 @@ Valid indexes for a list of length n: -n … n-1
 
 Quick check 👇 What does nums[-5] return?
 
-Ep 01 of "DSA in Python". Save it for revision and follow for Ep 02: slicing.
+Ep 01 on @codenest. Save it for revision and follow for Ep 02: slicing.
 
 #python #datastructures #algorithms #dsa #pythonprogramming #codinginterview
 #computerscience #learnpython #csstudent #softwaredeveloper #programmingtips

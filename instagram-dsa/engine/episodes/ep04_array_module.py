@@ -30,7 +30,7 @@ nar.beat("recap", "Recap.", "An array stores one type, packed tightly.",
 nar.beat("cta", "Next up: NumPy arrays.", "Follow for the whole series.")
 
 scene, B = new_episode(nar)
-hook(scene, B, 4, "Python's built-in array", highlight=("array",),
+hook(scene, B, "Python's built-in array", highlight=("array",),
      sub="most people never use it")
 
 END_MAIN = B["codes"].start - 0.15

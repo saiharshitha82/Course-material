@@ -127,6 +127,6 @@ time to read an output. The proportions below still apply.
 - The handle **@codenest** appears on every frame, top left. There's no progress bar. Set the handle in `HANDLE` in `engine/episodes/common.py`.
 - **Voice:** one consistent narrator across the series (`af_heart` by default). Read
   code as words ("nums of two", "minus one"), not symbols.
-- Episode tag pill: `DSA in Python · #NN`. Rename the series name to suit your page.
+- No episode tag or series name on screen: the hook opens with the title alone.
 - Cover image: export the hook frame (`scene.still(1.5, ...)`) and use it as the Reel
   cover, so the grid looks consistent.

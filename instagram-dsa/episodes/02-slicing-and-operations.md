@@ -37,7 +37,7 @@ nums.pop()        → removes + returns the last item
 
 Quick check 👇 What is nums[1:1]?
 
-Ep 02 of "DSA in Python". Next up: lists vs arrays.
+Ep 02 on @codenest. Next up: lists vs arrays.
 
 #python #datastructures #algorithms #dsa #pythonlists #slicing #learnpython
 #codinginterview #computerscience #csstudent #programmingtips

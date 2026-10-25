@@ -33,7 +33,7 @@ Type codes: 'b' tiny int (1 byte) · 'i' int · 'd' float (8 bytes)
 
 Quick check 👇 What does array('d', [1.5, 2.5]).itemsize return?
 
-Ep 04 of "DSA in Python". Next up: NumPy arrays.
+Ep 04 on @codenest. Next up: NumPy arrays.
 
 #python #datastructures #arrays #pythontips #dsa #learnpython #computerscience
 #codinginterview #csstudent #softwaredeveloper #programming

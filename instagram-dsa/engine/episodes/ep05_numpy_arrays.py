@@ -25,7 +25,7 @@ nar.beat("recap", "Recap.", "NumPy does maths on the whole array at once.",
 nar.beat("cta", "Next up: multidimensional arrays.", "Follow for the whole series.")
 
 scene, B = new_episode(nar)
-hook(scene, B, 5, "Why everyone uses NumPy", highlight=("NumPy",),
+hook(scene, B, "Why everyone uses NumPy", highlight=("NumPy",),
      sub="watch what happens when we double a list")
 
 END_MAIN = B["recap"].start - 0.2

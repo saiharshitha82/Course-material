@@ -33,7 +33,7 @@ nar.beat("recap", "Recap.", ("grid[r, c] is one cell.", "Grid, r comma c, is one
 nar.beat("cta", "Next up: tuples.", "Follow for the whole series.")
 
 scene, B = new_episode(nar)
-hook(scene, B, 6, "2-D arrays, and the grid bug", highlight=("2-D", "bug"),
+hook(scene, B, "2-D arrays, and the grid bug", highlight=("2-D", "bug"),
      sub="that catches everyone")
 
 END_NP = B["bug"].start - 0.15

@@ -50,7 +50,6 @@ scene.add(Brand(handle="@codenest"))
 
 # HOOK -----------------------------------------------------------------------
 hook_end = B["setup"].start - 0.15
-scene.add(Pill(text="DSA in Python  ·  #01", y=280, start=0.0, end=hook_end))
 scene.add(Title(text="Python list indexing in 40 seconds", y=420, size=96,
                 highlight=("indexing",), start=0.15, end=hook_end))
 scene.add(Text(text="(and the bug every beginner hits)", y=820, size=44,

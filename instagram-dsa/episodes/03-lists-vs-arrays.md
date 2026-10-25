@@ -37,7 +37,7 @@ Flexible vs compact. Know which one you're using.
 
 Quick check 👇 If an array starts at address 2000 and each item is 8 bytes, where is a[3]?
 
-Ep 03 of "DSA in Python". Next up: Python's array module.
+Ep 03 on @codenest. Next up: Python's array module.
 
 #python #datastructures #arrays #memory #dsa #computerscience #learnpython
 #codinginterview #csstudent #softwaredeveloper #programmingtips

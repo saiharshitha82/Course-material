@@ -36,7 +36,7 @@ NumPy runs the loop in compiled code, and every item shares one dtype.
 
 Quick check 👇 What does np.array([1, 2, 3]) + 10 give?
 
-Ep 05 of "DSA in Python". Next up: multidimensional arrays.
+Ep 05 on @codenest. Next up: multidimensional arrays.
 
 #python #numpy #datascience #datastructures #dsa #learnpython #machinelearning
 #computerscience #codinginterview #csstudent #programmingtips

@@ -42,7 +42,7 @@ grid[:, 1]   → a whole column
 
 Quick check 👇 For grid = np.array([[1, 2, 3], [4, 5, 6]]), what is grid[0, :]?
 
-Ep 06 of "DSA in Python". Next up: tuples.
+Ep 06 on @codenest. Next up: tuples.
 
 #python #numpy #2darray #matrix #datastructures #dsa #learnpython #pythonbug
 #codinginterview #computerscience #csstudent #programmingtips

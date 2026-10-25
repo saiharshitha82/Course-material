@@ -27,7 +27,7 @@ nar.beat("recap", "Recap.", "Lists hold references, so they're flexible.",
 nar.beat("cta", "Next up: Python's array module.", "Follow for the whole series.")
 
 scene, B = new_episode(nar)
-hook(scene, B, 3, "Lists are not arrays", highlight=("not",),
+hook(scene, B, "Lists are not arrays", highlight=("not",),
      sub="here's what's really in memory")
 
 END_A = B["array"].start - 0.15

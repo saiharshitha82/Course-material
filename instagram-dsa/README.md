@@ -117,6 +117,5 @@ for f in episodes/ep0*.py; do python "$f"; done
 ## Before publishing
 
 1. **Handle:** `@codenest` is set once in `engine/episodes/common.py` (`HANDLE`); Episode 01 sets it in its own file.
-2. **Series name:** "DSA in Python" is a placeholder. Use your page's name.
-3. **Reference style:** once you send screenshots or a screen recording of the
+2. **Reference style:** once you send screenshots or a screen recording of the
    reference Reel, the pacing and motion can be tuned to match its approach.

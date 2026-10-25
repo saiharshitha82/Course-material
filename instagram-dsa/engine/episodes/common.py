@@ -9,7 +9,6 @@ from voice import Narration  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[2] / "renders"
 HANDLE = "@codenest"
-SERIES = "DSA in Python"
 
 
 def new_episode(nar: Narration, tail: float = 0.8):
@@ -20,9 +19,8 @@ def new_episode(nar: Narration, tail: float = 0.8):
     return scene, nar.beats
 
 
-def hook(scene, B, number, title, highlight=(), sub=None, next_beat="setup", size=92):
+def hook(scene, B, title, highlight=(), sub=None, next_beat="setup", size=92):
     end = B[next_beat].start - 0.15
-    scene.add(Pill(text=f"{SERIES}  ·  #{number:02}", y=280, start=0.0, end=end))
     scene.add(Title(text=title, y=420, size=size, highlight=highlight, start=0.15, end=end))
     if sub:
         hb = B["hook"]

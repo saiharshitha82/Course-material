@@ -34,7 +34,7 @@ nar.beat("recap", "Recap.", "Slices are copies, and stop is excluded.",
 nar.beat("cta", "Next up: lists versus arrays.", "Follow for the whole series.")
 
 scene, B = new_episode(nar)
-hook(scene, B, 2, "Slice it, grow it, shrink it", highlight=("Slice",),
+hook(scene, B, "Slice it, grow it, shrink it", highlight=("Slice",),
      sub="4 list moves you'll use every day")
 
 END_SLICE = B["append"].start - 0.15

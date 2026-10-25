@@ -36,7 +36,7 @@
 
 Quick check 👇 <a question with one correct answer>
 
-Ep NN of "DSA in Python". Save it and follow for Ep NN+1: <next topic>.
+Ep NN on @codenest. Save it and follow for Ep NN+1: <next topic>.
 
 #python #datastructures #algorithms #dsa #<topic-tag> ...
 ```
