@@ -481,9 +481,9 @@ class Brand(Element):
     slide: int = 0
 
     def draw(self, d, t):
-        y = SAFE_BOTTOM - 10
-        d.text((W / 2, y), self.handle, font=font("sans-semibold", 32),
-               fill=COLORS["muted"], anchor="ms")
+        # handle sits under the progress bar; the bottom of the safe area is for captions
+        d.text((SAFE_LEFT, 112), self.handle, font=font("sans-semibold", 30),
+               fill=COLORS["muted"])
         # thin progress bar — gives viewers a sense of how long is left
         bar_y = 70
         d.rounded_rectangle([SAFE_LEFT, bar_y, SAFE_RIGHT, bar_y + 8], radius=4,
@@ -532,15 +532,22 @@ class Scene:
     def still(self, t: float, path: str | Path):
         self.frame(t).save(path)
 
-    def render(self, path: str | Path, start: float = 0, end: float | None = None):
+    def render(self, path: str | Path, start: float = 0, end: float | None = None,
+               audio: str | Path | None = None):
+        """Write an MP4. `audio` (a WAV) is muxed in, loudness-normalised to the
+        -14 LUFS that Instagram and other short-video apps play back at."""
         end = self.duration if end is None else end
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         cmd = ["ffmpeg", "-y", "-loglevel", "error",
                "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-               "-r", str(self.fps), "-i", "-",
-               "-c:v", "libx264", "-preset", "medium", "-crf", "18",
-               "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(path)]
+               "-r", str(self.fps), "-i", "-"]
+        if audio:
+            cmd += ["-ss", str(start), "-i", str(audio),
+                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
+                    "-c:a", "aac", "-b:a", "192k", "-ar", "48000", "-shortest"]
+        cmd += ["-c:v", "libx264", "-preset", "medium", "-crf", "18",
+                "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(path)]
         proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
         n = int((end - start) * self.fps)
         for k in range(n):

@@ -10,7 +10,7 @@ the brand there updates every video.
 | Property | Value |
 |---|---|
 | Resolution | 1080 × 1920 (9:16), 30 fps, H.264, yuv420p |
-| Length | 25–45 s. Aim for about 30 s per concept. |
+| Length | 25–45 s. One concept per Reel. |
 | Safe content box | x 80–940, y 250–1500 |
 | Top 250 px | Reserved for Instagram's header. Only the progress bar goes here. |
 | Bottom 420 px | Reserved for the caption, audio label and buttons. Nothing important goes here. |
@@ -48,13 +48,16 @@ Both fonts are free under the SIL Open Font License, so they're safe for commerc
 |---|---|---|
 | Hook title | Inter ExtraBold | 84–96 |
 | Section header | Inter ExtraBold | 50 |
-| Caption, "what's happening now" | Inter Bold | 50 |
+| Headline, "what's happening now" | Inter Bold | 50 |
+| Voice-over captions | Inter ExtraBold, spoken word on a blue pill | 50 |
 | Supporting text | Inter Medium | 36–44 |
 | Code | JetBrains Mono Medium | 36–42 (never below 34) |
 | Index labels, pointers | JetBrains Mono Bold | 34 |
 
-- Keep captions to **one line and about 35 characters or fewer**. If it needs two lines,
-  split it into two beats.
+- Keep headlines to **one line and about 35 characters or fewer**. If one needs two
+  lines, split it into two beats.
+- Voice-over captions are split automatically into balanced chunks of up to about 24
+  characters, so there are never lonely one-word captions.
 - Code lines should fit in **about 36 monospace characters** at 36 px. Shorten variable
   names rather than shrinking the font.
 
@@ -62,11 +65,12 @@ Both fonts are free under the SIL Open Font License, so they're safe for commerc
 
 ```
  y  70   ▬▬▬▬▬▬▬▬▬▬▬▬▬▬ progress bar
+ y 112   @handle (left)
  y 290   Section header           ("Lists · indexing")
- y 470   Caption / current idea   (changes every 2–3 s)
+ y 420   Headline / current idea  (changes with each beat)
  y 600–950  VISUAL ZONE           (array cells, nodes, tree, graph)
  y 960–1440 CODE ZONE             (REPL card, grows line by line)
- y 1480  @handle
+ y 1478  CAPTIONS                 (voice-over subtitles, current word in blue)
 ```
 
 The visual sits above the code because viewers look at the picture first, then read
@@ -90,7 +94,11 @@ recognisable layout.
 - Show the visual change **at the same moment** the output appears in the code card,
   so cause and effect line up.
 
-## 6. Pacing for a ~30 s Reel
+## 6. Pacing (voice-first; ~35–40 s with narration)
+
+The narration sets the clock (Kokoro `af_heart` at speed 1.05, with 0.22 s between
+sentences and 0.35 s between beats). Use `pause_after` on a beat to give viewers
+time to read an output. The proportions below still apply.
 
 | Beat | Time | Content |
 |---|---|---|
@@ -105,7 +113,9 @@ recognisable layout.
 
 ## 7. Branding
 
-- The handle appears on every frame at the bottom of the safe area. Set it in `Brand(handle=...)`.
+- The handle appears on every frame, top left under the progress bar. Set it in `Brand(handle=...)`.
+- **Voice:** one consistent narrator across the series (`af_heart` by default). Read
+  code as words ("nums of two", "minus one"), not symbols.
 - Episode tag pill: `DSA in Python · #NN`. Rename the series name to suit your page.
 - Cover image: export the hook frame (`scene.still(1.5, ...)`) and use it as the Reel
   cover, so the grid looks consistent.

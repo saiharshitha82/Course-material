@@ -12,7 +12,7 @@ not `print()`.
 | [`templates/episode-template.md`](templates/episode-template.md) | Fill-in script, storyboard and caption template |
 | [`episodes/`](episodes/) | Finished episode scripts |
 | [`engine/reelkit.py`](engine/reelkit.py) | Python animation engine (Pillow + ffmpeg) that renders the videos |
-| [`samples/`](samples/) | Rendered Episode 01 and its key frames |
+| [`samples/`](samples/) | Rendered Episode 01 (with voice-over and captions), its `.srt`, and key frames |
 
 ## The production workflow (per episode, ~1–2 hours once practised)
 
@@ -20,12 +20,12 @@ not `print()`.
 1. PICK      next row in content-plan.md
 2. SCRIPT    copy templates/episode-template.md → episodes/NN-topic.md
              write the code first, then run it in a real REPL and paste exact outputs
-3. STORYBOARD fill the timing table: one idea per 2–4 s, visual change == output moment
-4. BUILD     copy engine/episodes/ep01_list_indexing.py → epNN_topic.py, edit timings
+3. STORYBOARD write the voice-over as beats; one idea per beat, visual change == the spoken word
+4. BUILD     copy engine/episodes/ep01_list_indexing.py → epNN_topic.py, edit beats + visuals
 5. REVIEW    python episodes/epNN_topic.py --stills   → check PNGs for overlap/safe area
 6. RENDER    python episodes/epNN_topic.py            → renders/epNN_topic.mp4 (~30 s)
-7. AUDIO     (optional) record the voice-over from the script; add it and quiet
-             music in CapCut / InShot / Premiere. Add auto-captions if using a VO.
+7. AUDIO     voice-over + burned-in captions are generated automatically (see below);
+             optionally add quiet music in the Instagram app or CapCut
 8. PUBLISH   upload, set the hook frame as cover, paste the caption, pin a comment
              with the answer to the quiz question after a few hours
 9. LEARN     after 48 h log views, average watch %, saves and shares; adjust hooks
@@ -33,18 +33,49 @@ not `print()`.
 
 ## Rendering
 
-Requirements: Python 3.9+, Pillow, ffmpeg, and the Inter and JetBrains Mono fonts. Both
+Requirements: Python 3.9+, ffmpeg, and the Inter and JetBrains Mono fonts. Both
 fonts are free under the OFL. If they aren't installed system-wide, drop the `.otf`
 and `.ttf` files into `engine/fonts/`.
 
 ```bash
-pip install pillow
+pip install pillow kokoro-onnx soundfile
 cd instagram-dsa/engine
+python voice.py --download                       # one-time: ~200 MB voice model → engine/models/
 python episodes/ep01_list_indexing.py --stills   # key frames → ../renders/*.png
-python episodes/ep01_list_indexing.py            # full MP4  → ../renders/*.mp4
+python episodes/ep01_list_indexing.py            # MP4 with voice + captions → ../renders/
 ```
 
-A 31 s episode renders in about 30 s on a laptop. `renders/` is git-ignored, so keep
+Each render writes three files to `renders/`:
+
+| File | Use |
+|---|---|
+| `epNN_*.mp4` | Upload this. Voice-over muxed in at about -14 LUFS, captions burned in. |
+| `epNN_*.wav` | Voice-over alone, if you want to remix it with music in an editor |
+| `epNN_*.srt` | Caption file for CapCut, YouTube Shorts or TikTok re-uploads |
+
+A 38 s episode renders in about 40 s on a laptop. The first render also synthesises
+the voice, which takes a few seconds per sentence. After that the audio is cached per
+sentence, so changing visuals doesn't re-synthesise anything.
+
+### Voice-over and captions
+
+- **Voice:** [Kokoro-82M](https://github.com/thewh1teagle/kokoro-onnx), an open TTS
+  model licensed Apache-2.0, so commercial use is fine. It runs offline. The default
+  voice is `af_heart`. Others include `am_michael`, `bf_emma` and `bm_george`; set
+  `Narration(voice=..., speed=...)`. To use your own voice instead, record each
+  sentence and swap the cached WAVs, or replace the audio track in an editor using
+  the `.srt` timings.
+- **Timing is voice-first:** an episode lists its narration as named *beats*.
+  `nar.layout()` synthesises them and places them back to back, and the visuals are
+  scheduled from `B["beat"].start` / `.at(i)`. Edit a sentence and the whole video
+  re-times itself.
+- **Code read aloud:** give a `(shown, spoken)` pair, e.g.
+  `("nums[2] is 30.", "nums of two is thirty.")`. The caption shows the code and the
+  voice says the words.
+- **Captions:** short phrases of up to about 24 characters at the bottom of the safe
+  area. The word being spoken is highlighted in brand blue.
+- **Music:** add it in the Instagram app (licensed library) or in your editor, at
+  about 10–15% volume under the voice. `renders/` is git-ignored, so keep
 the finished uploads in `samples/` or your own drive.
 
 ### Engine building blocks
@@ -57,6 +88,7 @@ the finished uploads in `samples/` or your own drive.
 | `Pointer` | An arrow and label that glide between cells (iterators, two pointers, binary search) |
 | `Card` | Recap card |
 | `Brand` | Handle and progress bar on every frame |
+| `Narration`, `Subtitles` (`voice.py`) | Voice-over beats, audio mixdown, `.srt`, burned-in word-highlight captions |
 
 Every element takes `start` and `end` in seconds and animates in and out by itself, so
 an episode file is just a timeline. Later seasons need new primitives: stack tower,

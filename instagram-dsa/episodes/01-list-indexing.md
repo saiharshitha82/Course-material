@@ -1,23 +1,27 @@
 # Episode 01: Python list indexing
 
 - **Status:** rendered. Source: [`engine/episodes/ep01_list_indexing.py`](../engine/episodes/ep01_list_indexing.py)
-- **Length:** 31 s
+- **Length:** 37.8 s (set by the narration)
 - **Learning goal:** the viewer can predict the result of `nums[i]` for positive,
   negative and out-of-range `i`.
+- **Audio:** Kokoro `af_heart` voice-over, with captions burned in and synced word by word
 
-## Storyboard and timing
+## Voice-over script and storyboard
 
-| Time | On screen | Voice-over (optional) |
-|---|---|---|
-| 0.0–3.6 | Pill "DSA in Python · #01". Title "Python list **indexing** in 30 seconds". Sub: "(and the bug every beginner hits)" | "Python list indexing in thirty seconds, plus the bug every beginner hits." |
-| 3.7–6.5 | Header "Lists · indexing". Types `nums = [10, 20, 30, 40, 50]`. Five cells pop in. | "Here's a list of five numbers. Each item has a position." |
-| 6.6–9.4 | Blue labels 0–4 above the cells. Caption "Counting starts at 0, not 1". | "Positions start at zero, not one." |
-| 9.0–12.6 | Types `nums[2]`. Arrow glides to cell 2, which lifts blue. Output `30`. | "So nums of two is the third item: thirty." |
-| 13.0–16.0 | Amber labels −5…−1 below. Caption "Negative indexes count from the end". | "Negative indexes count backwards from the end." |
-| 15.5–19.2 | Types `nums[-1]`. Amber arrow on cell 4. Output `50`. | "Minus one is always the last item, whatever the length." |
-| 19.7–23.8 | Types `nums[5]`. A dashed red "?" box shakes at position 5. `IndexError: list index out of range`. | "But nums of five? There is no position five. Valid indexes run from minus five to four." |
-| 24.0–28.4 | Recap card with three rows | "Recap: zero is first, minus one is last, and length is one past the end." |
-| 28.6–31.0 | "Next episode: List **slicing**: nums[1:4]". "Follow so you don't miss it" | "Next up: slicing. Follow so you don't miss it." |
+The times are what the renderer produced. They come from the narration, so if you
+edit a line, the visuals re-time themselves.
+
+| Beat | Time | Voice-over (caption text; spoken form in brackets if different) | On screen |
+|---|---|---|---|
+| hook | 0.4–4.8 | "Python list indexing in 40 seconds. Plus the bug every beginner hits." | Pill "DSA in Python · #01", title with **indexing** underlined, sub-line |
+| setup | 5.4–8.5 | "Here's a list of five numbers. Each item has a position." | `nums = [10, 20, 30, 40, 50]` types out, five cells pop in |
+| rule | 8.9–10.9 | "And positions start at zero, not one." | Blue indices 0–4 above the cells |
+| ex1 | 11.6–14.5 | "So nums[2] is the third item: 30." *(nums of two… thirty)* | Arrow to cell 2, which lifts blue; `30` appears as "thirty" is said |
+| neg | 15.2–17.2 | "Negative indexes count from the end." | Amber −5…−1 below the cells |
+| ex2 | 17.8–21.6 | "nums[-1] is always the last item, whatever the length." *(nums of minus one…)* | Amber arrow to cell 4, output `50` |
+| gotcha | 22.3–27.0 | "But nums[5]? There is no position five. Python raises an IndexError." | A dashed red "?" box shakes, then `IndexError: list index out of range` |
+| recap | 27.9–32.9 | "Recap: 0 is first, -1 is last, and len(nums) is one past the end." | Recap card; each row appears as it is spoken |
+| cta | 33.9–36.7 | "Next up: slicing. Follow so you don't miss it." | "Next episode: List **slicing**: nums[1:4]" |
 
 ## Instagram caption
 
