@@ -1,5 +1,24 @@
 # Profile picture and bio: @codenest
 
+## Logo
+
+![logo](logo/codesnest_preview.png)
+
+The 0 1 2 nest mark beside the wordmark, with the tagline "Python DSA, made visual".
+Every file exists in two spellings: `codesnest_*` (Codes**Nest**) and `codenest_*`
+(Code**Nest**, matching the @codenest handle).
+
+| File | Use it for |
+|---|---|
+| `logo/*_horizontal_dark.png` | Banners, YouTube/LinkedIn headers, end cards (2400 × 800) |
+| `logo/*_horizontal_light.png` | White backgrounds: documents, slides, websites ("Nest" in amber, since yellow is too faint on white) |
+| `logo/*_horizontal_transparent.png` | Placing on dark photos or video |
+| `logo/*_stacked_dark.png` | Square posts, a carousel cover (1080 × 1080) |
+| `logo/*_stacked_transparent.png` | Stickers, watermarks |
+| `logo/icon_transparent.png` | The nest alone, e.g. a small corner watermark |
+
+Regenerate with `python branding/make_logo.py`.
+
 ## Profile picture with the name (round 4)
 
 ![options](v4_avatar_options_preview.png)
