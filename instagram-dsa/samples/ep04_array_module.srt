@@ -1,0 +1,119 @@
+1
+00:00:00,400 --> 00:00:01,074
+Python has a
+
+2
+00:00:01,074 --> 00:00:02,339
+built-in array type.
+
+3
+00:00:02,339 --> 00:00:04,303
+Most people never use it.
+
+4
+00:00:04,303 --> 00:00:05,037
+Import it from
+
+5
+00:00:05,037 --> 00:00:06,504
+the array module.
+
+6
+00:00:06,554 --> 00:00:07,616
+The first argument,
+
+7
+00:00:07,616 --> 00:00:09,095
+'i', is the type code.
+
+8
+00:00:09,095 --> 00:00:10,185
+It means every item
+
+9
+00:00:10,185 --> 00:00:11,925
+is a signed integer.
+
+10
+00:00:11,975 --> 00:00:13,438
+a.itemsize says each
+
+11
+00:00:13,438 --> 00:00:15,662
+item takes four bytes.
+
+12
+00:00:15,712 --> 00:00:16,776
+It works like a list,
+
+13
+00:00:16,776 --> 00:00:18,287
+so you can append.
+
+14
+00:00:18,437 --> 00:00:20,377
+But try appending 2.5.
+
+15
+00:00:20,377 --> 00:00:21,742
+The array refuses.
+
+16
+00:00:21,742 --> 00:00:23,765
+It only holds integers.
+
+17
+00:00:24,115 --> 00:00:24,939
+So pick the type
+
+18
+00:00:24,939 --> 00:00:26,114
+code for your data.
+
+19
+00:00:26,114 --> 00:00:27,636
+'b' for tiny integers,
+
+20
+00:00:27,636 --> 00:00:28,823
+'i' for integers,
+
+21
+00:00:28,823 --> 00:00:30,610
+'d' for decimals.
+
+22
+00:00:31,160 --> 00:00:31,986
+Recap.
+
+23
+00:00:31,986 --> 00:00:33,031
+An array stores one
+
+24
+00:00:33,031 --> 00:00:34,368
+type, packed tightly.
+
+25
+00:00:34,368 --> 00:00:35,049
+The type code
+
+26
+00:00:35,049 --> 00:00:36,039
+sets that type.
+
+27
+00:00:36,039 --> 00:00:36,978
+And the wrong type
+
+28
+00:00:36,978 --> 00:00:38,539
+raises a TypeError.
+
+29
+00:00:38,889 --> 00:00:40,894
+Next up: NumPy arrays.
+
+30
+00:00:40,894 --> 00:00:42,831
+Follow for the whole series.

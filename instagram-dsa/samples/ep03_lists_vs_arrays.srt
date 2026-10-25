@@ -1,0 +1,123 @@
+1
+00:00:00,400 --> 00:00:02,232
+Python lists are not arrays.
+
+2
+00:00:02,232 --> 00:00:02,854
+Here's what's
+
+3
+00:00:02,854 --> 00:00:04,213
+really in memory.
+
+4
+00:00:04,213 --> 00:00:04,930
+A list can mix
+
+5
+00:00:04,930 --> 00:00:06,302
+types, like this.
+
+6
+00:00:06,302 --> 00:00:07,249
+That's because a list
+
+7
+00:00:07,249 --> 00:00:08,575
+doesn't store the values.
+
+8
+00:00:08,575 --> 00:00:09,741
+It stores references:
+
+9
+00:00:09,741 --> 00:00:10,709
+arrows to objects
+
+10
+00:00:10,709 --> 00:00:12,698
+somewhere else in memory.
+
+11
+00:00:12,848 --> 00:00:13,811
+Each object is a
+
+12
+00:00:13,811 --> 00:00:14,849
+separate box, with
+
+13
+00:00:14,849 --> 00:00:16,437
+its own overhead.
+
+14
+00:00:16,487 --> 00:00:17,497
+An array stores the
+
+15
+00:00:17,497 --> 00:00:18,841
+raw values themselves,
+
+16
+00:00:18,841 --> 00:00:20,634
+packed side by side.
+
+17
+00:00:20,684 --> 00:00:22,130
+Every item has the same
+
+18
+00:00:22,130 --> 00:00:23,850
+type, and the same size.
+
+19
+00:00:23,850 --> 00:00:25,737
+Here, four bytes each.
+
+20
+00:00:25,787 --> 00:00:27,179
+So the computer finds any
+
+21
+00:00:27,179 --> 00:00:28,669
+item with simple maths:
+
+22
+00:00:28,669 --> 00:00:29,405
+start, plus
+
+23
+00:00:29,405 --> 00:00:31,167
+index, times size.
+
+24
+00:00:31,717 --> 00:00:32,542
+Recap.
+
+25
+00:00:32,542 --> 00:00:33,700
+Lists hold references,
+
+26
+00:00:33,700 --> 00:00:34,982
+so they're flexible.
+
+27
+00:00:34,982 --> 00:00:36,560
+Arrays hold raw values, so
+
+28
+00:00:36,560 --> 00:00:38,658
+they're compact and fast.
+
+29
+00:00:39,008 --> 00:00:40,167
+Next up: Python's
+
+30
+00:00:40,167 --> 00:00:41,279
+array module.
+
+31
+00:00:41,279 --> 00:00:43,216
+Follow for the whole series.

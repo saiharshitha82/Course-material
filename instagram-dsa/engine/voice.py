@@ -175,25 +175,33 @@ def _chunks(nar: Narration, max_chars: int = 24):
                 d = s.dur * wt / total
                 timed.append((w, t, t + d))
                 t += d
-            # balanced split: as few chunks as fit max_chars, of similar length,
-            # so a sentence never ends on a lonely one-word caption
-            n = max(1, -(-len(s.shown) // max_chars))
-            target = len(s.shown) / n
-            chunk, length = [], 0
-            for item in timed:
-                if chunk and length + len(item[0]) / 2 > target:
-                    out.append((chunk[0][1], chunk[-1][2], chunk))
-                    chunk, length = [], 0
-                chunk.append(item)
-                length += len(item[0]) + 1
-            if chunk:
-                out.append((chunk[0][1], chunk[-1][2], chunk))
+            # as few chunks as fit max_chars (with a little slack so short
+            # sentences stay on one line), split as evenly as possible so a
+            # sentence never ends on a lonely one-word caption
+            n = max(1, -(-(len(s.shown) - 4) // max_chars))
+            for group in _balanced(timed, min(n, len(timed))):
+                out.append((group[0][1], group[-1][2], group))
     # hold each chunk on screen until the next one starts (no flicker in short gaps)
     held = []
     for i, (s, e, words) in enumerate(out):
         nxt = out[i + 1][0] if i + 1 < len(out) else e + 0.6
         held.append((s, min(nxt, e + 0.6), words))
     return held
+
+
+def _balanced(items, n):
+    """Split items into n contiguous groups minimising the longest group's text."""
+    def length(group):
+        return len(" ".join(w for w, _, _ in group))
+    if n <= 1:
+        return [items]
+    best = None
+    for cut in range(1, len(items) - n + 2):
+        rest = _balanced(items[cut:], n - 1)
+        worst = max(length(items[:cut]), *(length(g) for g in rest))
+        if best is None or worst < best[0]:
+            best = (worst, [items[:cut]] + rest)
+    return best[1]
 
 
 @dataclass

@@ -236,7 +236,7 @@ PY_KEYWORDS = {
     "try", "except", "with", "yield", "pass", "break", "continue",
 }
 PY_BUILTINS = {"print", "len", "range", "list", "dict", "set", "tuple", "sorted",
-               "append", "pop", "insert", "array", "enumerate", "zip"}
+               "append", "pop", "insert", "array", "enumerate", "zip", "extend"}
 TOKEN_RE = re.compile(
     r"(#.*)|('[^']*'|\"[^\"]*\")|(\b\d+(?:\.\d+)?\b)|([A-Za-z_]\w*)|(\s+)|(.)")
 
@@ -265,6 +265,7 @@ class CodeLine:
     kind: str = "code"      # code | out | err
     cps: float = 28         # characters per second while typing
     focus: tuple[float, float] | None = None  # time window to emphasise this line
+    prompt: str | None = None  # override ">>> ", e.g. "... " for continuation lines
 
 
 @dataclass
@@ -277,26 +278,43 @@ class CodeBlock(Element):
     line_gap: float = 1.55
     show_prompt: bool = True  # draw ">>>" for code lines (REPL style)
 
+    def _rows(self, t, f):
+        """Visible lines as display rows; long outputs/errors wrap onto extra rows."""
+        max_chars = int((self.width - 80) // text_w("m", f))
+        rows = []
+        for ln in self.lines:
+            if t < ln.at:
+                continue
+            if ln.kind == "code" or len(ln.text) <= max_chars:
+                rows.append((ln, ln.text))
+                continue
+            cur = ""
+            for word in ln.text.split(" "):
+                if cur and len(cur) + 1 + len(word) > max_chars:
+                    rows.append((ln, cur))
+                    cur = word
+                else:
+                    cur = f"{cur} {word}" if cur else word
+            rows.append((ln, cur))
+        return rows
+
     def draw(self, d, t):
         f = font("mono", self.size)
         fb = font("mono-bold", self.size)
         lh = self.size * self.line_gap
         pad = 40
         y0 = self.y + self.dy(t)
-        shown = [ln for ln in self.lines if t >= ln.at]
-        h = pad * 2 + max(1, len(shown)) * lh - (lh - self.size * 1.2)
-        # card grows smoothly as lines are added
+        rows = self._rows(t, f)
+        h = pad * 2 + max(1, len(rows)) * lh - (lh - self.size * 1.2)
+        # card grows as lines are added
         d.rounded_rectangle([self.x, y0, self.x + self.width, y0 + h],
                             radius=28, fill=COLORS["card"])
         # three "window" dots — a generic editor hint, not a specific brand
-        for i, c in enumerate(("line", "line", "line")):
+        for i in range(3):
             d.ellipse([self.x + self.width - 120 + i * 30, y0 + 22,
-                       self.x + self.width - 104 + i * 30, y0 + 38], fill=COLORS[c])
+                       self.x + self.width - 104 + i * 30, y0 + 38], fill=COLORS["line"])
         y = y0 + pad
-        prompt = ">>> " if self.show_prompt else ""
-        for ln in shown:
-            n_chars = len(ln.text) if ln.kind != "code" else int((t - ln.at) * ln.cps)
-            visible = ln.text[:n_chars]
+        for ln, text in rows:
             if ln.focus and ln.focus[0] <= t < ln.focus[1]:
                 p = ease_out_cubic(progress(t, ln.focus[0], 0.25))
                 d.rounded_rectangle([self.x + 14, y - 10,
@@ -304,14 +322,16 @@ class CodeBlock(Element):
                                     radius=12, fill=COLORS["primary_soft"])
             x = self.x + pad
             if ln.kind == "code":
+                n_chars = int((t - ln.at) * ln.cps)
+                prompt = ln.prompt if ln.prompt is not None else (">>> " if self.show_prompt else "")
                 if prompt:
                     d.text((x, y), prompt, font=f, fill=COLORS["com"])
                     x += text_w(prompt, f)
-                for tok, ck in highlight_py(visible):
+                for tok, ck in highlight_py(text[:n_chars]):
                     d.text((x, y), tok, font=f, fill=COLORS[ck])
                     x += text_w(tok, f)
-                typing = n_chars < len(ln.text)
-                if typing or (t - ln.at) < len(ln.text) / ln.cps + 0.6:
+                typing = n_chars < len(text)
+                if typing or (t - ln.at) < len(text) / ln.cps + 0.6:
                     if int(t * 2.5) % 2 == 0 or typing:  # blinking caret
                         d.rectangle([x + 2, y + 4, x + 6, y + self.size * 1.1],
                                     fill=COLORS["primary"])
@@ -319,7 +339,7 @@ class CodeBlock(Element):
                 # outputs pop in with a quick fade toward their colour
                 p = ease_out_cubic(progress(t, ln.at, 0.3))
                 col = COLORS["good"] if ln.kind == "out" else COLORS["bad"]
-                d.text((x, y), visible, font=fb, fill=mix(COLORS["card"], col, p))
+                d.text((x, y), text, font=fb, fill=mix(COLORS["card"], col, p))
             y += lh
 
 

@@ -8,11 +8,11 @@ not `print()`.
 |---|---|
 | [`reference-analysis.md`](reference-analysis.md) | Status of the reference Reel analysis (**not yet done**, because Instagram was unreachable) and what to send so it can be done |
 | [`style-guide.md`](style-guide.md) | Original brand: colours, fonts, safe areas, layout, motion language, pacing |
-| [`content-plan.md`](content-plan.md) | 58 episodes across 8 seasons, from lists to graphs, each with a hook, visual and gotcha |
+| [`content-plan.md`](content-plan.md) | 51 episodes across 8 seasons, from lists to graphs, each with a hook, visual and gotcha |
 | [`templates/episode-template.md`](templates/episode-template.md) | Fill-in script, storyboard and caption template |
-| [`episodes/`](episodes/) | Finished episode scripts |
-| [`engine/reelkit.py`](engine/reelkit.py) | Python animation engine (Pillow + ffmpeg) that renders the videos |
-| [`samples/`](samples/) | Rendered Episode 01 (with voice-over and captions), its `.srt`, and key frames |
+| [`episodes/`](episodes/) | Episode scripts 01–06: voice-over, storyboard, Instagram caption, quiz |
+| [`engine/`](engine/) | Python animation engine (Pillow + ffmpeg + Kokoro TTS) and one script per episode |
+| [`samples/`](samples/) | Rendered Episodes 01–06 (MP4 with voice-over and captions), their `.srt` files, and key frames |
 
 ## The production workflow (per episode, ~1–2 hours once practised)
 
@@ -21,7 +21,7 @@ not `print()`.
 2. SCRIPT    copy templates/episode-template.md → episodes/NN-topic.md
              write the code first, then run it in a real REPL and paste exact outputs
 3. STORYBOARD write the voice-over as beats; one idea per beat, visual change == the spoken word
-4. BUILD     copy engine/episodes/ep01_list_indexing.py → epNN_topic.py, edit beats + visuals
+4. BUILD     copy the closest engine/episodes/epNN_*.py → epNN_topic.py, edit beats + visuals
 5. REVIEW    python episodes/epNN_topic.py --stills   → check PNGs for overlap/safe area
 6. RENDER    python episodes/epNN_topic.py            → renders/epNN_topic.mp4 (~30 s)
 7. AUDIO     voice-over + burned-in captions are generated automatically (see below);
@@ -75,8 +75,9 @@ sentence, so changing visuals doesn't re-synthesise anything.
 - **Captions:** short phrases of up to about 24 characters at the bottom of the safe
   area. The word being spoken is highlighted in brand blue.
 - **Music:** add it in the Instagram app (licensed library) or in your editor, at
-  about 10–15% volume under the voice. `renders/` is git-ignored, so keep
-the finished uploads in `samples/` or your own drive.
+  about 10–15% volume under the voice.
+
+`renders/` is git-ignored, so keep the finished uploads in `samples/` or your own drive.
 
 ### Engine building blocks
 
@@ -89,11 +90,25 @@ the finished uploads in `samples/` or your own drive.
 | `Card` | Recap card |
 | `Brand` | Handle and progress bar on every frame |
 | `Narration`, `Subtitles` (`voice.py`) | Voice-over beats, audio mixdown, `.srt`, burned-in word-highlight captions |
+| `ListAnim` (`structures.py`) | A list/array that changes over time: `append`, `insert`, `pop`, `set`, `set_all`, `extend`, `reject`, and highlights; can also render as a joined memory strip with addresses and byte ticks |
+| `RowPointer`, `Bracket`, `Hops`, `FlyCells` | Pointers, slice brackets with an excluded stop, step arcs, and cells copying into a new list |
+| `RefDiagram` | Slots with arrows to objects in memory (references, aliasing) |
+| `Grid` | 2-D array with row/column labels, cell/row/column highlights, and value changes |
+
+Episodes share their hook, header, recap, CTA and render steps through
+`engine/episodes/common.py`, so a new episode file only contains its own script and
+visuals.
 
 Every element takes `start` and `end` in seconds and animates in and out by itself, so
 an episode file is just a timeline. Later seasons need new primitives: stack tower,
 linked-list nodes, tree, graph and bar-chart sorting. Each one is a single class
-following the `ArrayRow` pattern.
+following the `ListAnim` / `Grid` pattern.
+
+Render all of Season 1:
+
+```bash
+for f in episodes/ep0*.py; do python "$f"; done
+```
 
 ## Before publishing
 

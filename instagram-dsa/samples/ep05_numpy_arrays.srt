@@ -1,0 +1,99 @@
+1
+00:00:00,400 --> 00:00:02,190
+Why does everyone use NumPy?
+
+2
+00:00:02,190 --> 00:00:03,076
+Watch what happens
+
+3
+00:00:03,076 --> 00:00:04,729
+when we double a list.
+
+4
+00:00:04,729 --> 00:00:06,693
+Here's a plain Python list.
+
+5
+00:00:06,693 --> 00:00:07,909
+To double it, Python
+
+6
+00:00:07,909 --> 00:00:09,160
+visits each item,
+
+7
+00:00:09,160 --> 00:00:10,662
+one at a time.
+
+8
+00:00:11,012 --> 00:00:12,863
+Now the NumPy way.
+
+9
+00:00:12,913 --> 00:00:13,960
+a * 2 doubles
+
+10
+00:00:13,960 --> 00:00:15,619
+every item at once.
+
+11
+00:00:15,619 --> 00:00:16,925
+The loop runs inside
+
+12
+00:00:16,925 --> 00:00:19,284
+NumPy's fast, compiled code.
+
+13
+00:00:19,534 --> 00:00:20,630
+Careful: nums *
+
+14
+00:00:20,630 --> 00:00:22,134
+2 on a plain list
+
+15
+00:00:22,134 --> 00:00:23,320
+doesn't do maths.
+
+16
+00:00:23,320 --> 00:00:25,036
+It repeats the list!
+
+17
+00:00:25,486 --> 00:00:26,311
+Recap.
+
+18
+00:00:26,311 --> 00:00:27,584
+NumPy does maths on the
+
+19
+00:00:27,584 --> 00:00:28,909
+whole array at once.
+
+20
+00:00:28,909 --> 00:00:30,674
+Every item shares one type.
+
+21
+00:00:30,674 --> 00:00:31,528
+And a list times
+
+22
+00:00:31,528 --> 00:00:33,004
+two just repeats.
+
+23
+00:00:33,354 --> 00:00:33,934
+Next up:
+
+24
+00:00:33,934 --> 00:00:35,661
+multidimensional arrays.
+
+25
+00:00:35,661 --> 00:00:37,598
+Follow for the whole series.
