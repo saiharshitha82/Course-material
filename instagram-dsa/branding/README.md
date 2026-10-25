@@ -1,6 +1,20 @@
 # Profile picture and bio: @codenest
 
-## Logo
+## Logo (no nest or eggs)
+
+![logo options](logo_v2/preview.png)
+
+| Option | Idea | Verdict |
+|---|---|---|
+| 1 `[C][N]` list cells | The initials as two list cells with indices 0 and 1, "N" lit as the current item, just like the Reels | **Recommended.** It's the videos' own visual language, so viewers connect the logo to the content. |
+| 2 `{CN}` code block | The initials inside orange curly braces | The most instantly "code". Bold at small sizes. |
+| 3 N as a graph | The letter N drawn as four graph nodes joined by edges | The most minimal and abstract; reads as "algorithms". |
+
+Files in `logo_v2/`, per option (`cells`, `braces`, `graph`): `*_icon.png` (1080 × 1080,
+also usable as the profile picture), `*_horizontal_dark.png` and
+`*_horizontal_light.png` (2400 × 800). Regenerate with `python branding/make_logo_v2.py`.
+
+## Logo with the nest (earlier)
 
 ![logo](logo/codesnest_preview.png)
 

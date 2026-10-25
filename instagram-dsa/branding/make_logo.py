@@ -13,8 +13,55 @@ Outputs (in branding/logo/), for each spelling in NAMES:
 
 from PIL import Image, ImageDraw
 
-from make_avatars_v2 import CREAM, DEEP, HERE, S, YELLOW, font, radial_bg, with_shadow
-from make_avatars_v4 import draw_nest
+from make_avatars_v2 import CREAM, DEEP, HERE, MID, ORANGE, S, YELLOW, font, radial_bg
+
+ICON = "code"  # what the nest holds: "code" (</>), "cells" ([0][1][2]) or "prompt" (>>>)
+
+
+def draw_bowl(d, cx, rim, k):
+    """The woven nest bowl."""
+    w, h = S * 0.66 * k, S * 0.36 * k
+    box = [cx - w / 2, rim - h / 2, cx + w / 2, rim + h / 2]
+    d.chord(box, 0, 180, fill=ORANGE)
+    for j in range(6):
+        inset = j * S * 0.028 * k
+        d.arc([box[0] + inset, box[1] + inset * 0.6, box[2] - inset, box[3] - inset * 0.6],
+              8, 172, fill=YELLOW if j % 2 == 0 else DEEP, width=max(5, int(16 * k)))
+    d.rounded_rectangle([box[0] - 10 * k, rim - 22 * k, box[2] + 10 * k, rim + 22 * k],
+                        radius=int(22 * k), fill=YELLOW)
+
+
+def draw_contents(d, cx, rim, k, kind):
+    """What sits in the nest, drawn before the bowl so the rim overlaps it."""
+    if kind == "code":
+        f = font("mono-bold", int(330 * k))
+        parts = [("<", CREAM), ("/", YELLOW), (">", CREAM)]
+        total = sum(f.getlength(t) for t, _ in parts)
+        x = cx - total / 2
+        for t, col in parts:
+            d.text((x, rim - S * 0.06 * k), t, font=f, fill=col, anchor="ls")
+            x += f.getlength(t)
+    elif kind == "cells":
+        size, gap = S * 0.15 * k, S * 0.025 * k
+        f = font("mono-bold", int(120 * k))
+        for i in range(3):
+            x0 = cx - 1.5 * size - gap + i * (size + gap)
+            y0 = rim - size * 0.95 - (S * 0.03 * k if i == 1 else 0)
+            col = YELLOW if i == 1 else CREAM
+            d.rounded_rectangle([x0, y0, x0 + size, y0 + size], radius=int(size * 0.2),
+                                fill=col, outline=DEEP, width=max(4, int(12 * k)))
+            d.text((x0 + size / 2, y0 + size * 0.45), str(i), font=f, fill=DEEP, anchor="mm")
+    elif kind == "prompt":
+        f = font("mono-bold", int(300 * k))
+        d.text((cx - S * 0.04 * k, rim - S * 0.05 * k), ">>>", font=f, fill=CREAM, anchor="ms")
+        tw = f.getlength(">>>")
+        x = cx - S * 0.04 * k + tw / 2 + S * 0.02 * k
+        d.rectangle([x, rim - S * 0.17 * k, x + S * 0.035 * k, rim - S * 0.06 * k], fill=YELLOW)
+
+
+def draw_nest(d, cx, rim, scale=1.0, kind=None):
+    draw_contents(d, cx, rim, scale, kind or ICON)
+    draw_bowl(d, cx, rim, scale)
 
 OUT = HERE / "logo"
 NAMES = {"codesnest": ("Codes", "Nest"), "codenest": ("Code", "Nest")}
@@ -22,11 +69,11 @@ TAGLINE = "Python DSA, made visual"
 SS = 2  # supersampling factor
 
 
-def nest_layer(size, k):
+def nest_layer(size, k, kind=None):
     """Draw the nest centred on a transparent square layer of `size` px (pre-supersampled).
     draw_nest positions eggs relative to S, so draw at S and scale the layer."""
     L = Image.new("RGBA", (S, S), (0, 0, 0, 0))
-    draw_nest(ImageDraw.Draw(L), S / 2, S * 0.56, scale=k)
+    draw_nest(ImageDraw.Draw(L), S / 2, S * 0.56, scale=k, kind=kind)
     box = L.getbbox()
     L = L.crop(box)
     w, h = L.size
@@ -111,8 +158,27 @@ def preview(paths, out):
     sheet.save(out)
 
 
+def icon_options(out):
+    """The three nest contents side by side on the dark green."""
+    labels = [("code", "1  </>  code"), ("cells", "2  list cells"), ("prompt", "3  >>> prompt")]
+    tile = 600
+    sheet = Image.new("RGB", (tile * 3 + 160, tile + 120), (248, 248, 248))
+    d = ImageDraw.Draw(sheet)
+    for i, (kind, label) in enumerate(labels):
+        bg = radial_bg().resize((tile, tile))
+        icon = nest_layer(int(tile * 0.7), 1.0, kind)
+        bg = bg.convert("RGBA")
+        bg.alpha_composite(icon, ((tile - icon.width) // 2, (tile - icon.height) // 2))
+        x = 40 + i * (tile + 40)
+        sheet.paste(bg.convert("RGB"), (x, 30))
+        d.text((x + tile / 2, tile + 75), label, font=font("sans-bold", 34), fill=(30, 30, 30),
+               anchor="mm")
+    sheet.save(out)
+
+
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
+    icon_options(OUT / "icon_options.png")
     nest_layer(1024, 1.0).save(OUT / "icon_transparent.png")
     for key, (first, second) in NAMES.items():
         files = []
