@@ -46,7 +46,7 @@ DURATION = round(END + 0.8, 1)
 B = nar.beats
 
 scene = Scene(DURATION)
-scene.add(Brand(handle="@yourhandle", duration=DURATION))
+scene.add(Brand(handle="@codenest"))
 
 # HOOK -----------------------------------------------------------------------
 hook_end = B["setup"].start - 0.15

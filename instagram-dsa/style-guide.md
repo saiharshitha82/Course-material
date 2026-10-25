@@ -12,7 +12,7 @@ the brand there updates every video.
 | Resolution | 1080 × 1920 (9:16), 30 fps, H.264, yuv420p |
 | Length | 25–45 s. One concept per Reel. |
 | Safe content box | x 80–940, y 250–1500 |
-| Top 250 px | Reserved for Instagram's header. Only the progress bar goes here. |
+| Top 250 px | Reserved for Instagram's header. Only the handle goes here. |
 | Bottom 420 px | Reserved for the caption, audio label and buttons. Nothing important goes here. |
 | Right 140 px | The like, comment and share buttons sit here (mostly below y≈1100). Keep code and text out. |
 
@@ -76,8 +76,7 @@ Both fonts are free under the SIL Open Font License, so they're safe for commerc
 ## 4. Layout template, top to bottom
 
 ```
- y  70   ▬▬▬▬▬▬▬▬▬▬▬▬▬▬ progress bar
- y 112   @handle (left)
+ y 100   @codenest (left)
  y 290   Section header           ("Lists · indexing")
  y 420   Headline / current idea  (changes with each beat)
  y 600–950  VISUAL ZONE           (array cells, nodes, tree, graph)
@@ -125,7 +124,7 @@ time to read an output. The proportions below still apply.
 
 ## 7. Branding
 
-- The handle appears on every frame, top left under the progress bar. Set it in `Brand(handle=...)`.
+- The handle **@codenest** appears on every frame, top left. There's no progress bar. Set the handle in `HANDLE` in `engine/episodes/common.py`.
 - **Voice:** one consistent narrator across the series (`af_heart` by default). Read
   code as words ("nums of two", "minus one"), not symbols.
 - Episode tag pill: `DSA in Python · #NN`. Rename the series name to suit your page.

@@ -92,7 +92,7 @@ sentence, so changing visuals doesn't re-synthesise anything.
 | `ArrayRow` + `Highlight` | List/array cells with pop-in, index labels, highlighted access, and an out-of-range ghost cell |
 | `Pointer` | An arrow and label that glide between cells (iterators, two pointers, binary search) |
 | `Card` | Recap card |
-| `Brand` | Handle and progress bar on every frame |
+| `Brand` | The @codenest handle, top left on every frame |
 | `Narration`, `Subtitles` (`voice.py`) | Voice-over beats, audio mixdown, `.srt`, burned-in word-highlight captions |
 | `ListAnim` (`structures.py`) | A list/array that changes over time: `append`, `insert`, `pop`, `set`, `set_all`, `extend`, `reject`, and highlights; can also render as a joined memory strip with addresses and byte ticks |
 | `RowPointer`, `Bracket`, `Hops`, `FlyCells` | Pointers, slice brackets with an excluded stop, step arcs, and cells copying into a new list |
@@ -116,7 +116,7 @@ for f in episodes/ep0*.py; do python "$f"; done
 
 ## Before publishing
 
-1. **Handle:** change `@yourhandle` in each episode file (or make it a constant).
+1. **Handle:** `@codenest` is set once in `engine/episodes/common.py` (`HANDLE`); Episode 01 sets it in its own file.
 2. **Series name:** "DSA in Python" is a placeholder. Use your page's name.
 3. **Reference style:** once you send screenshots or a screen recording of the
    reference Reel, the pacing and motion can be tuned to match its approach.

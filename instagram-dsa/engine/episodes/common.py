@@ -8,7 +8,7 @@ from reelkit import Brand, Card, Pill, Scene, Text, Title  # noqa: E402
 from voice import Narration  # noqa: E402
 
 OUT = Path(__file__).resolve().parents[2] / "renders"
-HANDLE = "@yourhandle"
+HANDLE = "@codenest"
 SERIES = "DSA in Python"
 
 
@@ -16,7 +16,7 @@ def new_episode(nar: Narration, tail: float = 0.8):
     """Lay out the narration and create the scene sized to it."""
     duration = round(nar.layout(lead_in=0.4) + tail, 1)
     scene = Scene(duration)
-    scene.add(Brand(handle=HANDLE, duration=duration))
+    scene.add(Brand(handle=HANDLE))
     return scene, nar.beats
 
 

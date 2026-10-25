@@ -515,23 +515,14 @@ class Card(Element):
 
 @dataclass
 class Brand(Element):
-    """Persistent handle + progress bar at the bottom of the safe area."""
-    handle: str = "@yourhandle"
-    duration: float = 30
+    """Persistent handle, top left; the bottom of the safe area is for captions."""
+    handle: str = "@codenest"
     fade_in: float = 0.0
     slide: int = 0
 
     def draw(self, d, t):
-        # handle sits under the progress bar; the bottom of the safe area is for captions
-        d.text((SAFE_LEFT, 112), self.handle, font=font("sans-semibold", 30),
+        d.text((SAFE_LEFT, 100), self.handle, font=font("sans-bold", 34),
                fill=COLORS["muted"])
-        # thin progress bar — gives viewers a sense of how long is left
-        bar_y = 70
-        d.rounded_rectangle([SAFE_LEFT, bar_y, SAFE_RIGHT, bar_y + 8], radius=4,
-                            fill=COLORS["card"])
-        d.rounded_rectangle([SAFE_LEFT, bar_y,
-                             SAFE_LEFT + (SAFE_RIGHT - SAFE_LEFT) * clamp(t / self.duration),
-                             bar_y + 8], radius=4, fill=COLORS["primary"])
 
 
 # ---------------------------------------------------------------------------
