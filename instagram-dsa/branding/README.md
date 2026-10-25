@@ -1,6 +1,25 @@
 # Profile picture and bio: @codenest
 
-## Logo (no nest or eggs)
+## Logo, round 3: code-first (no nest)
+
+![code-first logos](logo_v3/preview_codenest.png)
+
+Each option is a square icon plus a monospace wordmark ("code" in cream, "nest" in
+yellow) ending in an orange caret, as if it were being typed.
+
+| Option | Mark | Verdict |
+|---|---|---|
+| **B** `>>>` prompt | The Python REPL prompt with a cursor, in a code-card tile | **Recommended.** Unmistakably Python, matches the code card in every Reel, and stays clear at feed size. |
+| **A** `{cn}` braces | Curly braces around the initials | Runner-up: a strong "code" monogram. |
+| **D** `</>` glyph | The classic code symbol | Bold and simple, but it's generic and many coding pages use it. |
+| **C** array cells | `c` `n` as array cells with an index pointer | Ties to the videos' look, but the details get tiny at feed size. |
+
+Files in `logo_v3/`: `<option>_icon.png` (1080 × 1080, works as a profile picture),
+and `<option>_<codenest|codesnest>_horizontal_dark.png` / `_light.png` (2400 × 800).
+`preview_codesnest.png` shows the "codesnest" spelling. Regenerate with
+`python branding/make_logo_v3.py`.
+
+## Logo (no nest or eggs), round 2
 
 ![logo options](logo_v2/preview.png)
 
