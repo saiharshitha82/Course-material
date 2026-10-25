@@ -77,7 +77,7 @@ sentence, so changing visuals doesn't re-synthesise anything.
   `("nums[2] is 30.", "nums of two is thirty.")`. The caption shows the code and the
   voice says the words.
 - **Captions:** short phrases of up to about 24 characters at the bottom of the safe
-  area. The word being spoken is highlighted in the theme's focus colour (yellow on dark green).
+  area, in plain white text with no word highlighting.
 - **Music:** add it in the Instagram app (licensed library) or in your editor, at
   about 10–15% volume under the voice.
 
@@ -87,13 +87,13 @@ sentence, so changing visuals doesn't re-synthesise anything.
 
 | Element | Use |
 |---|---|
-| `Title`, `Text`, `Pill` | Hook, captions, episode tags (`Title.highlight` adds a coloured, underlined keyword) |
+| `Title`, `Text`, `Pill` | Hook, captions, episode tags (`Title.highlight` colours a keyword yellow; `underline=True` adds an underline swipe, off by default) |
 | `CodeBlock` + `CodeLine` | REPL card with a typewriter effect, syntax highlighting, outputs, errors and line focus |
 | `ArrayRow` + `Highlight` | List/array cells with pop-in, index labels, highlighted access, and an out-of-range ghost cell |
 | `Pointer` | An arrow and label that glide between cells (iterators, two pointers, binary search) |
 | `Card` | Recap card |
 | `Brand` | The @codenest handle, top left on every frame |
-| `Narration`, `Subtitles` (`voice.py`) | Voice-over beats, audio mixdown, `.srt`, burned-in word-highlight captions |
+| `Narration`, `Subtitles` (`voice.py`) | Voice-over beats, audio mixdown, `.srt`, burned-in captions |
 | `ListAnim` (`structures.py`) | A list/array that changes over time: `append`, `insert`, `pop`, `set`, `set_all`, `extend`, `reject`, and highlights; can also render as a joined memory strip with addresses and byte ticks |
 | `RowPointer`, `Bracket`, `Hops`, `FlyCells` | Pointers, slice brackets with an excluded stop, step arcs, and cells copying into a new list |
 | `RefDiagram` | Slots with arrows to objects in memory (references, aliasing) |

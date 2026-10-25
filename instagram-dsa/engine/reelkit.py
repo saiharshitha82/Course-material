@@ -189,12 +189,14 @@ class Text(Element):
 
 @dataclass
 class Title(Element):
-    """Big hook text. `highlight` words get the primary colour + underline swipe."""
+    """Big hook text. `highlight` words get the primary colour (and an accent
+    underline swipe if `underline` is on)."""
     text: str = ""
     y: float = 300
     size: int = 84
     highlight: tuple[str, ...] = ()
     max_width: int = SAFE_RIGHT - SAFE_LEFT
+    underline: bool = False
 
     def draw(self, d, t):
         f = font("sans-black", self.size)
@@ -217,12 +219,17 @@ class Title(Element):
             for w in line:
                 ww = text_w(w, f)
                 hl = w.strip(".,:?!") in self.highlight
-                if hl and underline_p > 0:
+                if hl and self.underline and underline_p > 0:
                     uy = y + self.size * 0.98
                     d.rounded_rectangle([x, uy, x + ww * underline_p, uy + 14],
                                         radius=7, fill=COLORS["accent"])
-                d.text((x, y), w, font=f,
-                       fill=COLORS["primary" if hl else "ink"])
+                if hl:  # colour the word, not its trailing punctuation
+                    core = w.rstrip(".,:?!")
+                    d.text((x, y), core, font=f, fill=COLORS["primary"])
+                    d.text((x + text_w(core, f), y), w[len(core):], font=f,
+                           fill=COLORS["ink"])
+                else:
+                    d.text((x, y), w, font=f, fill=COLORS["ink"])
                 x += ww + space
             y += self.size * 1.18
 

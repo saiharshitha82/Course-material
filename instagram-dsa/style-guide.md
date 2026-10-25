@@ -61,7 +61,7 @@ Both fonts are free under the SIL Open Font License, so they're safe for commerc
 | Hook title | Inter ExtraBold | 84–96 |
 | Section header | Inter ExtraBold | 50 |
 | Headline, "what's happening now" | Inter Bold | 50 |
-| Voice-over captions | Inter ExtraBold, spoken word on a blue pill | 50 |
+| Voice-over captions | Inter ExtraBold, plain text (no highlight box) | 50 |
 | Supporting text | Inter Medium | 36–44 |
 | Code | JetBrains Mono Medium | 36–42 (never below 34) |
 | Index labels, pointers | JetBrains Mono Bold | 34 |
@@ -81,7 +81,7 @@ Both fonts are free under the SIL Open Font License, so they're safe for commerc
  y 420   Headline / current idea  (changes with each beat)
  y 600–950  VISUAL ZONE           (array cells, nodes, tree, graph)
  y 960–1440 CODE ZONE             (REPL card, grows line by line)
- y 1478  CAPTIONS                 (voice-over subtitles, current word in blue)
+ y 1478  CAPTIONS                 (voice-over subtitles, plain text)
 ```
 
 The visual sits above the code because viewers look at the picture first, then read
@@ -98,7 +98,7 @@ recognisable layout.
 | Cell lifts 18 px and fills with colour | This element is being accessed | `Highlight` |
 | Arrow glides between cells (0.4 s ease-in-out) and bobs gently | A pointer or iterator moves | `Pointer` |
 | Dashed red box plus a shake | An invalid position or error | `ArrayRow.ghost` |
-| Orange underline swipes under a keyword | The key term of the episode | `Title.highlight` |
+| Keyword in the focus colour (no underline) | The key term of the episode | `Title.highlight` |
 
 - **One movement at a time.** Start a new animation only after the previous one has
   settled, about 0.4 s later.

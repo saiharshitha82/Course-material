@@ -25,8 +25,8 @@ from pathlib import Path
 import numpy as np
 import soundfile as sf
 
-from reelkit import (COLORS, SAFE_LEFT, SAFE_RIGHT, W, Element, ease_out_back,
-                     ease_out_cubic, font, mix, progress, text_w)
+from reelkit import (COLORS, SAFE_LEFT, SAFE_RIGHT, W, Element, ease_out_back, font,
+                     progress, text_w)
 
 ENGINE = Path(__file__).resolve().parent
 MODEL = ENGINE / "models" / "kokoro-v1.0.fp16.onnx"
@@ -206,7 +206,7 @@ def _balanced(items, n):
 
 @dataclass
 class Subtitles(Element):
-    """Burned-in captions: a short phrase, the word being spoken in brand blue."""
+    """Burned-in captions: a short phrase in plain text, synced to the voice."""
     chunks: list = field(default_factory=list)
     y: float = 1478
     size: int = 50
@@ -226,19 +226,9 @@ class Subtitles(Element):
         x = (W - total) / 2
         x = max(SAFE_LEFT, min(x, SAFE_RIGHT - total))
         y = self.y + (1 - scale_p) * 10
-        for (w, ws, we), ww in zip(words, widths):
-            speaking = ws <= t < we
-            spoken = t >= ws
-            if speaking:
-                p = ease_out_cubic(progress(t, ws, 0.08))
-                d.rounded_rectangle([x - 10, y - 6, x + ww + 10, y + self.size * 1.12],
-                                    radius=12, fill=mix(COLORS["bg"], COLORS["primary"], p))
-                col = mix(COLORS["ink"], COLORS["on_primary"], p)
-            else:
-                col = COLORS["ink"] if spoken else COLORS["muted"]
-            d.text((x, y), w, font=f, fill=col)
+        for w, ww in zip((w for w, _, _ in words), widths):
+            d.text((x, y), w, font=f, fill=COLORS["ink"])
             x += ww + space
-
 
 if __name__ == "__main__":
     import sys
