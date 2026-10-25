@@ -1,50 +1,55 @@
-# Profile picture and bio
+# Profile picture and bio: @codenest
 
-## Profile picture
+## Profile picture (round 3, built around the CodeNest name)
 
-![options](avatar_options_preview.png)
+![options](v3_avatar_options_preview.png)
 
 | File | Idea | Verdict |
 |---|---|---|
-| `avatar_b_dsa_cells.png` | The letters D S A as list cells, with the middle one highlighted under the pointer arrow and indices 0 1 2 below. It's the exact visual language of the Reels. | **Recommended.** Reads clearly at feed size and says "data structures" at a glance. |
-| `avatar_a_index_zero.png` | `[0]`, the "counting starts at zero" idea from Episode 01 | Strong and simple. The text under it is too small to read in the feed, so drop it if you choose this one. |
-| `avatar_c_repl_prompt.png` | A `>>>` Python prompt with a blinking caret | Clean, but says "Python" more than "DSA". |
+| `v3_avatar_2_woven_nest.png` | A woven nest holding three eggs numbered **0 1 2**, like list indices, with the middle one lit yellow as the "current item" in the Reels | **Recommended.** It says "nest" at a glance, the indices say "code", and the shape stays clear at feed size. |
+| `v3_avatar_1_brace_nest.png` | `{ }` braces as a nest around three eggs | Strong runner-up: very "code", simple and bold. |
+| `v3_avatar_4_wordmark.png` | "code / nest" as a two-line wordmark | Spells out the name, but text gets small in the circle at feed size. Better as a Highlight cover or end card. |
+| `v3_avatar_3_nested_squares.png` | Nested arrays shrinking to a yellow core | Clean and abstract, but less obviously tied to the name. |
 
-All three are 1080 × 1080 in the videos' dark green and yellow. They're original
-artwork and don't use the Python logo, whose use in logos is restricted by the
-Python Software Foundation's trademark policy. Regenerate them after any colour
-change with `python branding/make_avatars.py`.
+All four are 1080 × 1080, in the videos' dark green and yellow, with the design kept
+inside the centre circle that Instagram crops to. They're original artwork and don't
+use the Python logo, whose use in logos is restricted by the Python Software
+Foundation's trademark policy. Regenerate them with `python branding/make_avatars_v3.py`.
+
+Earlier rounds, from before the page had a name, are still here:
+`avatar_options_preview.png` (round 1) and `v2_avatar_options_preview.png` (round 2).
 
 ## Name field (searchable, up to 64 characters)
 
-`DSA in Python | Animated Coding`
+`CodeNest | Python DSA, Animated`
 
-Instagram search matches the **name** field as well as the handle, so put the keywords there.
+Instagram search matches the **name** field as well as the handle, so the keywords
+go there.
 
 ## Bio (each one is under 150 characters)
 
 **Option 1: clear and keyword-rich (recommended)**
 ```
 🐍 Python data structures & algorithms, animated
-📦 Lists → arrays → trees → graphs
-🧠 One concept in under a minute
+🥚 Lists → arrays → trees → graphs
+⏱️ One concept in under a minute
 👇 Start with Ep 01
 ```
 
-**Option 2: interview angle**
+**Option 2: plays on the name**
 ```
-Learn DSA by watching it move 🎬
-🐍 Python · data structures · algorithms
+Where Python DSA hatches 🥚🐍
+Watch data structures move, step by step
 🎯 For CS students & coding interviews
-New episode every week 👇
+New episode weekly 👇
 ```
 
-**Option 3: playful, coder-style**
+**Option 3: coder-style**
 ```
-Python DSA, visualised 🐍
-[0] → [n-1]: lists to graphs, step by step
+nest = [lists, arrays, trees, graphs] 🐍
+DSA in Python, visualised
 💬 Quiz in every caption, answer pinned
-👇 Episode 01
+👇 Ep 01
 ```
 
 ## Profile setup checklist
@@ -53,4 +58,4 @@ Python DSA, visualised 🐍
 - [ ] **Pin** Reels 01–03 to the top of the grid, so new visitors start at the beginning
 - [ ] Make a **Highlight** per season ("Lists", "Collections", "Linked lists", …), with covers in the same dark green
 - [ ] Link: optional. A free link-in-bio page or a GitHub repo with the episode code works well for CS students.
-- [ ] Use the same handle in the videos: replace `@yourhandle` in `engine/episodes/common.py` and `ep01_list_indexing.py`, then re-render
+- [x] Use the same handle in the videos: all six episodes already show `@codenest`
