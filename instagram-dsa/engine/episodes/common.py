@@ -48,9 +48,9 @@ def recap(scene, B, rows, y=420):
                    row_stagger=min(stagger, 1.4), rows=rows))
 
 
-def cta(scene, B, title, highlight=()):
+def cta(scene, B, title, highlight=(), label="Next episode"):
     cs = B["cta"].start
-    scene.add(Pill(text="Next episode", y=560, start=cs - 0.1, color="accent", soft="accent_soft"))
+    scene.add(Pill(text=label, y=560, start=cs - 0.1, color="accent", soft="accent_soft"))
     scene.add(Title(text=title, y=660, size=84, highlight=highlight, start=cs))
     scene.add(Text(text="Follow so you don't miss it", y=900, size=44, color="muted",
                    start=B["cta"].at(len(B["cta"].sentences) - 1)))

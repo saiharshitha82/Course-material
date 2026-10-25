@@ -11,9 +11,9 @@ not `print()`.
 | [`style-guide.md`](style-guide.md) | Original brand: colour themes (dark green default), fonts, safe areas, layout, motion language, pacing |
 | [`content-plan.md`](content-plan.md) | 51 episodes across 8 seasons, from lists to graphs, each with a hook, visual and gotcha |
 | [`templates/episode-template.md`](templates/episode-template.md) | Fill-in script, storyboard and caption template |
-| [`episodes/`](episodes/) | Episode scripts 01–06: voice-over, storyboard, Instagram caption, quiz |
+| [`episodes/`](episodes/) | Episode scripts 00 (intro) to 06: voice-over, storyboard, Instagram caption, quiz |
 | [`engine/`](engine/) | Python animation engine (Pillow + ffmpeg + Kokoro TTS) and one script per episode |
-| [`samples/`](samples/) | Rendered Episodes 01–06 (MP4 with voice-over and captions), their `.srt` files, and key frames |
+| [`samples/`](samples/) | Rendered Episodes 00–06 (MP4 with voice-over and captions), their `.srt` files, and key frames |
 
 ## The production workflow (per episode, ~1–2 hours once practised)
 
@@ -98,6 +98,7 @@ sentence, so changing visuals doesn't re-synthesise anything.
 | `RowPointer`, `Bracket`, `Hops`, `FlyCells` | Pointers, slice brackets with an excluded stop, step arcs, and cells copying into a new list |
 | `RefDiagram` | Slots with arrows to objects in memory (references, aliasing) |
 | `Grid` | 2-D array with row/column labels, cell/row/column highlights, and value changes |
+| `Gather`, `NodeGraph`, `Chips`, `CompareBars` | Scattered values snapping into a list, tree/graph node diagrams, topic roadmaps, and growing comparison bars |
 
 Episodes share their hook, header, recap, CTA and render steps through
 `engine/episodes/common.py`, so a new episode file only contains its own script and
@@ -108,7 +109,7 @@ an episode file is just a timeline. Later seasons need new primitives: stack tow
 linked-list nodes, tree, graph and bar-chart sorting. Each one is a single class
 following the `ListAnim` / `Grid` pattern.
 
-Render all of Season 1:
+Render the intro and all of Season 1:
 
 ```bash
 for f in episodes/ep0*.py; do python "$f"; done

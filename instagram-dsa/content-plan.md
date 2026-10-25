@@ -13,6 +13,7 @@ into two episodes.
 
 | # | Title / hook | Key visual | Gotcha / twist |
 |---|---|---|---|
+| 00 | Intro: what is DSA, and why learn it? ✅ *(pin first)* | Scattered values snap into a list; list/grid/tree/graph montage; a million vs 20 steps; topic roadmap | Binary search: at most 20 steps for 1,000,000 sorted items |
 | 01 | List indexing ✅ | Cells with positive and negative indices | `IndexError` one past the end |
 | 02 | Slicing and list operations ✅ | Bracket over `[1:4]`, step hops, cells flying into new lists; append/insert/pop | Stop is excluded; `insert(0)` shifts every item |
 | 03 | Lists vs arrays ✅ | References to scattered objects vs a packed memory strip | Address = start + i × size |

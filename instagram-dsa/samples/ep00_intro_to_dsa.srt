@@ -1,0 +1,163 @@
+1
+00:00:00,400 --> 00:00:01,680
+What are data structures
+
+2
+00:00:01,680 --> 00:00:02,705
+and algorithms?
+
+3
+00:00:02,705 --> 00:00:03,928
+And why does every coding
+
+4
+00:00:03,928 --> 00:00:05,678
+interview ask about them?
+
+5
+00:00:05,678 --> 00:00:07,080
+A data structure is a
+
+6
+00:00:07,080 --> 00:00:08,673
+way to organise data,
+
+7
+00:00:08,673 --> 00:00:09,493
+so your code can
+
+8
+00:00:09,493 --> 00:00:10,847
+use it quickly.
+
+9
+00:00:10,897 --> 00:00:11,712
+Lists.
+
+10
+00:00:11,712 --> 00:00:12,538
+Grids.
+
+11
+00:00:12,538 --> 00:00:13,380
+Trees.
+
+12
+00:00:13,380 --> 00:00:14,232
+Graphs.
+
+13
+00:00:14,232 --> 00:00:15,353
+Each one organises
+
+14
+00:00:15,353 --> 00:00:17,238
+data in its own way.
+
+15
+00:00:17,288 --> 00:00:18,299
+An algorithm is
+
+16
+00:00:18,299 --> 00:00:19,657
+a step-by-step recipe
+
+17
+00:00:19,657 --> 00:00:21,322
+for solving a problem.
+
+18
+00:00:21,322 --> 00:00:22,498
+Like searching a list:
+
+19
+00:00:22,498 --> 00:00:23,675
+check each item, until
+
+20
+00:00:23,675 --> 00:00:25,687
+you find the one you want.
+
+21
+00:00:25,937 --> 00:00:27,151
+With a million sorted
+
+22
+00:00:27,151 --> 00:00:28,643
+items, checking one by one
+
+23
+00:00:28,643 --> 00:00:30,304
+can take a million steps.
+
+24
+00:00:30,304 --> 00:00:31,012
+Binary search
+
+25
+00:00:31,012 --> 00:00:32,580
+needs just twenty.
+
+26
+00:00:32,830 --> 00:00:33,807
+That's why coding
+
+27
+00:00:33,807 --> 00:00:35,937
+interviews are full of DSA.
+
+28
+00:00:35,987 --> 00:00:37,049
+Here, you'll learn it
+
+29
+00:00:37,049 --> 00:00:38,465
+all in Python, visually.
+
+30
+00:00:38,465 --> 00:00:39,693
+From lists and arrays,
+
+31
+00:00:39,693 --> 00:00:40,651
+to stacks, linked
+
+32
+00:00:40,651 --> 00:00:41,806
+lists, trees, graphs,
+
+33
+00:00:41,806 --> 00:00:43,659
+searching, and sorting.
+
+34
+00:00:43,909 --> 00:00:44,988
+One idea per reel,
+
+35
+00:00:44,988 --> 00:00:46,287
+in under a minute.
+
+36
+00:00:46,287 --> 00:00:47,530
+With real code, and a
+
+37
+00:00:47,530 --> 00:00:49,399
+quiz in every caption.
+
+38
+00:00:49,749 --> 00:00:50,890
+Start with episode
+
+39
+00:00:50,890 --> 00:00:52,308
+one: list indexing.
+
+40
+00:00:52,308 --> 00:00:53,393
+Follow, and let's
+
+41
+00:00:53,393 --> 00:00:55,246
+master DSA together.

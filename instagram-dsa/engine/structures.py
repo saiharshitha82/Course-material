@@ -587,3 +587,153 @@ class Grid(Element):
                     cx, cy = self.center(r, 0)
                     d.text((cx - self.cell / 2 - 34, cy), str(r), font=f,
                            fill=mix(COLORS["bg"], COLORS["primary"], q), anchor="mm")
+
+
+# ---------------------------------------------------------------------------
+# Intro / overview primitives
+# ---------------------------------------------------------------------------
+
+@dataclass
+class Gather(Element):
+    """Values scattered across the screen fly into a ListAnim's cells
+    (dst should start, without pop, at `start + dur` with the same stagger)."""
+    values: list = field(default_factory=list)
+    origins: list = field(default_factory=list)  # [(x, y)] scattered positions
+    dst: ListAnim | None = None
+    gather_at: float = 0.0
+    stagger: float = 0.1
+    dur: float = 0.6
+    fade_in: float = 0.01
+    slide: int = 0
+
+    def draw(self, d, t):
+        cs = self.dst.cell_size(self.dst.start)
+        for k, (v, (ox, oy)) in enumerate(zip(self.values, self.origins)):
+            appear = progress(t, self.start + k * 0.08, 0.35)
+            if appear <= 0:
+                continue
+            tk = self.gather_at + k * self.stagger
+            q = ease_in_out(progress(t, tk, self.dur))
+            if q >= 1:
+                continue
+            x1, y1 = self.dst.center(k, self.dst.start)
+            wob = math.sin(t * 3 + k) * 8 * (1 - q)  # idle drift while scattered
+            draw_cell(d, lerp(ox, x1, q), lerp(oy, y1, q) + wob, cs, v,
+                      scale=ease_out_back(appear), mono=self.dst.mono)
+
+
+@dataclass
+class NodeGraph(Element):
+    """Circles joined by lines: trees and graphs. nodes: [(x, y, label)],
+    edges: [(i, j)]. Nodes pop in staggered; each edge draws once both ends exist."""
+    nodes: list = field(default_factory=list)
+    edges: list = field(default_factory=list)
+    radius: int = 34
+    stagger: float = 0.1
+    highlight: dict = field(default_factory=dict)  # node index -> colour key
+    fade_in: float = 0.01
+    slide: int = 0
+
+    def _node_t(self, i):
+        return self.start + i * self.stagger
+
+    def draw(self, d, t):
+        for i, j in self.edges:
+            te = max(self._node_t(i), self._node_t(j)) + 0.2
+            p = ease_in_out(progress(t, te, 0.35))
+            if p <= 0:
+                continue
+            (x0, y0, _), (x1, y1, _) = self.nodes[i], self.nodes[j]
+            d.line([x0, y0, lerp(x0, x1, p), lerp(y0, y1, p)], fill=COLORS["line"], width=5)
+        f = font("sans-bold", int(self.radius * 0.9))
+        for i, (x, y, label) in enumerate(self.nodes):
+            q = progress(t, self._node_t(i), 0.35)
+            if q <= 0:
+                continue
+            r = self.radius * ease_out_back(q)
+            style = self.highlight.get(i)
+            fill = COLORS[SOFT[style]] if style else COLORS["surface"]
+            border = COLORS[style] if style else COLORS["line"]
+            d.ellipse([x - r, y - r, x + r, y + r], fill=fill, outline=border, width=5)
+            if label and q > 0.6:
+                d.text((x, y), str(label), font=f,
+                       fill=COLORS[style] if style else COLORS["ink"], anchor="mm")
+
+
+@dataclass
+class Chips(Element):
+    """Topic tags that wrap across lines and pop in one by one (a roadmap)."""
+    labels: list = field(default_factory=list)
+    y: float = 560
+    stagger: float = 0.15
+    size: int = 38
+    highlight: dict = field(default_factory=dict)  # label index -> colour key
+    fade_in: float = 0.01
+    slide: int = 0
+
+    def _layout(self):
+        f = font("sans-bold", self.size)
+        padx, gap, row_h = 26, 16, self.size + 52
+        rows, cur, cur_w = [], [], 0
+        for i, lab in enumerate(self.labels):
+            w = text_w(lab, f) + 2 * padx
+            if cur and cur_w + gap + w > SAFE_RIGHT - SAFE_LEFT:
+                rows.append((cur, cur_w))
+                cur, cur_w = [], 0
+            cur_w += (gap if cur else 0) + w
+            cur.append((i, lab, w))
+        if cur:
+            rows.append((cur, cur_w))
+        out = []
+        for r, (items, total) in enumerate(rows):
+            x = (W - total) / 2
+            for i, lab, w in items:
+                out.append((i, lab, x, self.y + r * row_h, w))
+                x += w + gap
+        return out, f
+
+    def draw(self, d, t):
+        items, f = self._layout()
+        h = self.size + 32
+        for i, lab, x, y, w in items:
+            q = progress(t, self.start + i * self.stagger, 0.35)
+            if q <= 0:
+                continue
+            s = ease_out_back(q)
+            style = self.highlight.get(i)
+            fill = COLORS[SOFT[style]] if style else COLORS["surface"]
+            border = COLORS[style] if style else COLORS["line"]
+            cx, cy = x + w / 2, y + h / 2
+            d.rounded_rectangle([cx - w / 2 * s, cy - h / 2 * s, cx + w / 2 * s, cy + h / 2 * s],
+                                radius=int(h / 2 * s), fill=fill, outline=border, width=4)
+            if s > 0.7:
+                d.text((cx, cy), lab, font=f,
+                       fill=COLORS[style] if style else COLORS["ink"], anchor="mm")
+
+
+@dataclass
+class CompareBars(Element):
+    """Horizontal bars growing to compare sizes. rows: [(label, value_text, fraction, colour)]."""
+    rows: list = field(default_factory=list)
+    y: float = 600
+    row_gap: float = 190
+    row_stagger: float = 1.0
+    grow: float = 1.2
+
+    def draw(self, d, t):
+        x0, full = SAFE_LEFT, SAFE_RIGHT - SAFE_LEFT
+        for k, (label, value, frac, col) in enumerate(self.rows):
+            ts = self.start + k * self.row_stagger
+            q = progress(t, ts, 0.3)
+            if q <= 0:
+                continue
+            y = self.y + k * self.row_gap + self.dy(t)
+            d.text((x0, y), label, font=font("sans-bold", 40),
+                   fill=mix(COLORS["bg"], COLORS["ink"], ease_out_cubic(q)))
+            p = ease_out_cubic(progress(t, ts + 0.2, self.grow))
+            bw = max(14, full * frac * p)  # a sliver stays visible for tiny values
+            d.rounded_rectangle([x0, y + 62, x0 + full, y + 110], radius=24, fill=COLORS["card"])
+            d.rounded_rectangle([x0, y + 62, x0 + bw, y + 110], radius=24, fill=COLORS[col])
+            if p > 0.05:
+                d.text((x0, y + 128), value, font=font("mono-bold", 38),
+                       fill=mix(COLORS["bg"], COLORS[col], min(1, p * 2)))
