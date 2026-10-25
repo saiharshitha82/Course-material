@@ -1,6 +1,19 @@
 # Profile picture and bio: @codenest
 
-## Profile picture (round 3, built around the CodeNest name)
+## Profile picture with the name (round 4)
+
+![options](v4_avatar_options_preview.png)
+
+| File | Idea | Verdict |
+|---|---|---|
+| `v4_avatar_2_stacked_name.png` | **Code** / **Nest** stacked large, with three egg dots underneath | **Most readable.** The name is still clear in the ~110 px feed circle. |
+| `v4_avatar_1_nest_and_name.png` | The 0 1 2 nest above "CodeNest" | **Best brand mark.** Logo and name together; the name gets small in the feed, but the nest still reads. |
+| `v4_avatar_4_brace_name.png` | `{ Code Nest }` with orange braces | Says "code" the most strongly. |
+| `v4_avatar_3_egg_o.png` | "CodeNest" on one line with a yellow egg as the "o" | Clever, but one line is the smallest text of the four. |
+
+Regenerate with `python branding/make_avatars_v4.py`.
+
+## Profile picture without text (round 3)
 
 ![options](v3_avatar_options_preview.png)
 
